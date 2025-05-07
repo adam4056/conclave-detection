@@ -1,16 +1,9 @@
 {
-  "name": "conclave-status",
+  "name": "pope-election-api",
   "version": "1.0.0",
-  "description": "A simple app to check the status of the conclave.",
-  "main": "index.js",
-  "scripts": {
-    "start": "vercel dev",
-    "deploy": "vercel"
-  },
+  "type": "module",
   "dependencies": {
-    "rss-parser": "^3.12.0"
-  },
-  "devDependencies": {},
-  "author": "Your Name",
-  "license": "MIT"
+    "node-fetch": "^3.3.2",
+    "xml2js": "^0.4.23"
+  }
 }
