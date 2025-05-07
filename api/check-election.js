@@ -13,12 +13,11 @@ export default async function handler(req, res) {
 
     const keywords = [
       'pope elected',
-      'new pope',
       'white smoke',
       'new pontiff',
       'habemus papam',
       'papal conclave',
-      'vatican elects',
+      'elected',
       'successor to francis',
       'new vatican leader',
       'conclave selects pope',
