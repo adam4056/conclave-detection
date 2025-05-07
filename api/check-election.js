@@ -3,7 +3,7 @@ import { Parser } from 'xml2js';
 
 export default async function handler(req, res) {
   try {
-    const response = await fetch('https://www.vaticannews.va/en.rss.xml');
+    const response = await fetch('https://www.zive.cz/rss/sc-47/');
     const text = await response.text();
     const parser = new Parser();
     const feed = await parser.parseStringPromise(text);
