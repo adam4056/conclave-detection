@@ -1,21 +1,27 @@
-async function updateStatus() {
+const express = require('express');
+const Parser = require('rss-parser');
+const app = express();
+const port = 3000;
+
+// Statické soubory (HTML, CSS, JS) z public složky
+app.use(express.static('public'));
+
+// API endpoint
+app.get('/api/check-election', async (req, res) => {
+    const parser = new Parser();
     try {
-        const response = await fetch('/api/check-election');
-        const data = await response.json();
-        const statusElement = document.getElementById('conclave-status');
-
-        if (data.popeElected) {
-            statusElement.textContent = 'A pope has been elected!';
-            statusElement.style.color = 'green';
-        } else {
-            statusElement.textContent = 'No pope has been elected yet.';
-            statusElement.style.color = 'red';
-        }
+        const feed = await parser.parseURL('https://www.vaticannews.va/en.rss.xml');
+        const electionArticle = feed.items.find(item =>
+            item.title.toLowerCase().includes('pope elected') ||
+            item.contentSnippet.toLowerCase().includes('pope elected')
+        );
+        res.status(200).json({ popeElected: !!electionArticle });
     } catch (error) {
-        console.error('Error fetching conclave status:', error);
+        console.error('Error fetching RSS feed:', error);
+        res.status(500).json({ error: 'Failed to fetch RSS feed' });
     }
-}
+});
 
-// Update status every minute
-setInterval(updateStatus, 60000);
-updateStatus();
+app.listen(port, () => {
+    console.log(`Server běží na http://localhost:${port}`);
+});
