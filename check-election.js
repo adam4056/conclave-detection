@@ -1,11 +1,14 @@
-import Parser from 'rss-parser';
+// api/check-election.js nebo vlož do server.js
+const express = require('express');
+const Parser = require('rss-parser');
+const router = express.Router();
 
-export default async function handler(req, res) {
+router.get('/check-election', async (req, res) => {
     const parser = new Parser();
     try {
-        const feed = await parser.parseURL('https://www.vaticannews.va/en.rss'); // Replace with the correct RSS feed URL
+        const feed = await parser.parseURL('https://www.vaticannews.va/en.rss.xml');
         const electionArticle = feed.items.find(item =>
-            item.title.toLowerCase().includes('pope elected') || 
+            item.title.toLowerCase().includes('pope elected') ||
             item.contentSnippet.toLowerCase().includes('pope elected')
         );
 
@@ -14,4 +17,6 @@ export default async function handler(req, res) {
         console.error('Error fetching RSS feed:', error);
         res.status(500).json({ error: 'Failed to fetch RSS feed' });
     }
-}
+});
+
+module.exports = router;
