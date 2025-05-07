@@ -1,7 +1,5 @@
-// filepath: c:\Users\Adam\Documents\Programovani 25\Nová složka\app.js
-
-document.addEventListener('DOMContentLoaded', function() {
-    async function updateStatus() {
+async function updateStatus() {
+    try {
         const response = await fetch('/api/check-election');
         const data = await response.json();
         const statusElement = document.getElementById('conclave-status');
@@ -13,7 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
             statusElement.textContent = 'No pope has been elected yet.';
             statusElement.style.color = 'red';
         }
+    } catch (error) {
+        console.error('Error fetching conclave status:', error);
     }
+}
 
-    setInterval(updateStatus, 60000); // Aktualizace každou minutu
-});
+// Update status every minute
+setInterval(updateStatus, 60000);
+updateStatus();
