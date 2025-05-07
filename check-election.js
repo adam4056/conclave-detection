@@ -1,22 +1,37 @@
-// api/check-election.js nebo vlož do server.js
 const express = require('express');
-const Parser = require('rss-parser');
-const router = express.Router();
+const fetch = require('node-fetch');
+const xml2js = require('xml2js');
+const app = express();
 
-router.get('/check-election', async (req, res) => {
-    const parser = new Parser();
+app.get('/api/check-election', async (req, res) => {
     try {
-        const feed = await parser.parseURL('https://www.vaticannews.va/en.rss.xml');
-        const electionArticle = feed.items.find(item =>
-            item.title.toLowerCase().includes('pope elected') ||
-            item.contentSnippet.toLowerCase().includes('pope elected')
-        );
+        const response = await fetch('https://www.vaticannews.va/en.rss.xml');
+        const text = await response.text();
+        const parser = new xml2js.Parser();
+        const feed = await parser.parseStringPromise(text);
 
-        res.status(200).json({ popeElected: !!electionArticle });
-    } catch (error) {
-        console.error('Error fetching RSS feed:', error);
-        res.status(500).json({ error: 'Failed to fetch RSS feed' });
+        const items = feed.rss.channel[0].item;
+        const keywords = ['habemus papam', 'white smoke', 'new pope', 'pope elected', 'new pontiff'];
+
+        const today = new Date();
+        const todayString = today.toISOString().split('T')[0]; // YYYY-MM-DD
+
+        const popeElected = items.some(item => {
+            const pubDate = new Date(item.pubDate[0]);
+            const pubDateString = pubDate.toISOString().split('T')[0];
+
+            if (pubDateString !== todayString) return false;
+
+            const title = item.title[0].toLowerCase();
+            const description = (item.description?.[0] || '').toLowerCase();
+            return keywords.some(keyword =>
+                title.includes(keyword) || description.includes(keyword)
+            );
+        });
+
+        res.json({ popeElected });
+    } catch (err) {
+        console.error('Error checking election status:', err);
+        res.status(500).json({ error: 'Failed to fetch election status' });
     }
 });
-
-module.exports = router;
