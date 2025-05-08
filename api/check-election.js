@@ -4,7 +4,7 @@ const xml2js = require('xml2js');
 
 module.exports = async (req, res) => {
   try {
-    const feedUrl = 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114';
+    const feedUrl = 'test.xml';
     const keywords = [
       'pope elected', 'new pope', 'white smoke', 'new pontiff',
       'habemus papam', 'papal conclave', 'vatican elects',
