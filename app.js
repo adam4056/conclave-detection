@@ -1,6 +1,6 @@
 async function updateStatus() {
     try {
-        const response = await fetch('/api/check-election');
+        const response = await fetch('https://conclave-backend-aaoy.onrender.com/api/check-election');
         const data = await response.json();
         const statusElement = document.getElementById('conclave-status');
 

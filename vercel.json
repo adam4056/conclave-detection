@@ -1,8 +1,0 @@
-
-{
-    "functions": {
-    "api/check-election.go": {
-    "runtime": "go"
-    }
-    }
-}
