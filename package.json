@@ -1,9 +1,8 @@
 {
-  "name": "pope-election-api",
+  "name": "pope-check-api",
   "version": "1.0.0",
-  "type": "module",
   "dependencies": {
-    "node-fetch": "^3.3.2",
-    "xml2js": "^0.4.23"
+  "node-fetch": "^2.6.7",
+  "xml2js": "^0.4.23"
   }
 }
