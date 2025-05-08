@@ -1,1 +1,30 @@
-<?xml version="1.0" encoding="UTF-8" ?> <rss version="2.0"> <channel> <title>CNBC News</title> <link>https://www.cnbc.com</link> <description>Latest news from CNBC</description> <item> <title>Pope Elected: White smoke rises over Vatican</title> <link>https://www.cnbc.com/2025/05/08/pope-elected.html</link> <description>The conclave has ended. Habemus Papam! A new Pope has been elected.</description> <pubDate>Thu, 08 May 2025 10:15:00 GMT</pubDate> </item> <item> <title>Stocks climb amid earnings optimism</title> <link>https://www.cnbc.com/2025/05/08/stocks-rise.html</link> <description>Markets react to new corporate earnings.</description> <pubDate>Thu, 08 May 2025 08:00:00 GMT</pubDate> </item> <item> <title>Weather patterns shift in Southern Europe</title> <link>https://www.cnbc.com/2025/05/07/weather-shift.html</link> <description>Unexpected storms hit Italy and Spain.</description> <pubDate>Wed, 07 May 2025 20:00:00 GMT</pubDate> </item> </channel> </rss>
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>Vatican News Feed</title>
+    <link>https://www.vaticannews.va</link>
+    <description>Automatic alerts on papal elections</description>
+    <language>en</language>
+    <item>
+      <title>New Pope Elected</title>
+      <link>https://www.vaticannews.va/new-pope</link>
+      <description>A new pope has been elected following the conclave. White smoke rises above the Sistine Chapel.</description>
+      <pubDate>Thu, 08 May 2025 12:00:00 +0000</pubDate>
+      <guid>https://www.vaticannews.va/new-pope</guid>
+    </item>
+    <item>
+      <title>White Smoke Signals New Pontiff</title>
+      <link>https://www.vaticannews.va/white-smoke</link>
+      <description>White smoke has appeared — indicating a new pope has been chosen.</description>
+      <pubDate>Thu, 08 May 2025 11:55:00 +0000</pubDate>
+      <guid>https://www.vaticannews.va/white-smoke</guid>
+    </item>
+    <item>
+      <title>Habemus Papam: Pope Announced</title>
+      <link>https://www.vaticannews.va/habemus-papam</link>
+      <description>The famous phrase 'Habemus Papam' was heard from the balcony — the Catholic Church has a new leader.</description>
+      <pubDate>Thu, 08 May 2025 12:10:00 +0000</pubDate>
+      <guid>https://www.vaticannews.va/habemus-papam</guid>
+    </item>
+  </channel>
+</rss>
