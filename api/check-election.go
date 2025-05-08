@@ -1,3 +1,4 @@
+// api/check-election.go
 package main
 
 import (
@@ -9,18 +10,15 @@ import (
 "time"
 )
 
-// --- RSS structs ---
 type RSS struct {
-Channel Channel xml:"channel"
-}
-type Channel struct {
-Items []Item xml:"item"
-}
-type Item struct {
+Channel struct {
+Items []struct {
 Title string xml:"title"
 Link string xml:"link"
 Description string xml:"description"
 PubDate string xml:"pubDate"
+} xml:"item"
+} xml:"channel"
 }
 
 type Article struct {
@@ -34,12 +32,11 @@ PopeElected bool json:"popeElected"
 Articles []Article json:"articles"
 }
 
-// --- Vercel handler ---
-func Handler(w http.ResponseWriter, r *http.Request) {
-url := "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114"
-resp, err := http.Get(url)
+// Handler is the Vercel entry point
+func Handler(ctx context.Context, w http.ResponseWriter, r *http.Request) {
+resp, err := http.Get("https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114")
 if err != nil {
-http.Error(w, "Failed to fetch RSS", http.StatusInternalServerError)
+http.Error(w, "failed to fetch RSS", http.StatusInternalServerError)
 return
 }
 defer resp.Body.Close()
@@ -49,7 +46,7 @@ Zkopírovat
 Upravit
 var rss RSS
 if err := xml.NewDecoder(resp.Body).Decode(&rss); err != nil {
-	http.Error(w, "Failed to parse RSS", http.StatusInternalServerError)
+	http.Error(w, "failed to parse RSS", http.StatusInternalServerError)
 	return
 }
 
@@ -92,7 +89,6 @@ w.Header().Set("Content-Type", "application/json")
 json.NewEncoder(w).Encode(result)
 }
 
-// helper
 func parseTime(dateStr string) (time.Time, error) {
 t, err := time.Parse(time.RFC1123Z, dateStr)
 if err == nil {
